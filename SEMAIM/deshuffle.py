@@ -13,7 +13,6 @@ def load_permutation_data(json_path):
 def simple_deshuffle_approach(image, permutation):
     """
     Simple approach: just show the reconstructed images without deshuffling
-    OR try a different deshuffling strategy
     """
     img_array = np.array(image)
     h, w, c = img_array.shape
@@ -21,7 +20,6 @@ def simple_deshuffle_approach(image, permutation):
     print(f"Image size: {h}x{w}")
     print(f"Permutation length: {len(permutation)}")
     
-    # For now, let's NOT deshuffle and just return the image as-is
     # This will show how well the model reconstructed the permuted images
     return image
 
@@ -81,12 +79,12 @@ def main():
     print("Loading permutation data...")
     permutation_data = load_permutation_data(args.json_path)
     
-    print(f"🔧 Mode: {args.mode}")
+    print(f" Mode: {args.mode}")
     
     # Process each image
     processed_count = 0
     for perm_key, perm_info in permutation_data.items():
-        print(f"\n📷 Processing {perm_key}...")
+        print(f"Processing {perm_key}...")
         
         # Get the base filename
         base_filename = perm_key.replace('.jpg', '').replace('.png', '')
@@ -95,25 +93,25 @@ def main():
         reconstructed_path = os.path.join(args.reconstructed_dir, f"{base_filename}_reconstruction.png")
         
         if not os.path.exists(reconstructed_path):
-            print(f"  ❌ Reconstructed image not found: {reconstructed_path}")
+            print(f"Reconstructed image not found: {reconstructed_path}")
             continue
         
         try:
             # Load reconstructed image
             reconstructed_img = Image.open(reconstructed_path).convert('RGB')
-            print(f"  ✅ Loaded reconstructed image: {reconstructed_img.size}")
+            print(f"Loaded reconstructed image: {reconstructed_img.size}")
             
             # Get permutation
             permutation = perm_info['permutation']
             
             # Process based on mode
             if args.mode == 'no_deshuffle':
-                print("  ➡️  Not deshuffling - showing permuted reconstruction")
+                print("Not deshuffling - showing permuted reconstruction")
                 processed_img = reconstructed_img
                 output_suffix = "_permuted_reconstruction"
                 
             elif args.mode == 'pixel_level':
-                print("  🔄 Trying pixel-level deshuffling...")
+                print("Trying pixel-level deshuffling...")
                 processed_img = try_pixel_level_deshuffle(reconstructed_img, permutation)
                 output_suffix = "_pixel_deshuffled"
             
@@ -121,23 +119,23 @@ def main():
             output_path = os.path.join(args.output_dir, f"{base_filename}{output_suffix}.png")
             processed_img.save(output_path)
             
-            print(f"  ✅ Saved: {output_path}")
+            print(f"Saved: {output_path}")
             processed_count += 1
             
         except Exception as e:
-            print(f"  ❌ Error processing {perm_key}: {e}")
+            print(f"Error processing {perm_key}: {e}")
             import traceback
             traceback.print_exc()
             continue
     
-    print(f"\n🎉 Successfully processed {processed_count} images!")
+    print(f" Successfully processed {processed_count} images!")
     print(f"Results saved in: {args.output_dir}")
     
     if args.mode == 'no_deshuffle':
-        print("\n📋 These images show the RECONSTRUCTED PERMUTED images (as the model learned them)")
+        print("These images show the RECONSTRUCTED PERMUTED images (as the model learned them)")
         print("   Compare these to the original permuted images to see reconstruction quality")
     elif args.mode == 'pixel_level':
-        print("\n📋 These images show PIXEL-LEVEL DESHUFFLED reconstructions")
+        print(" These images show PIXEL-LEVEL DESHUFFLED reconstructions")
         print("   These should look more like the original cat (if deshuffling worked correctly)")
 
 if __name__ == '__main__':

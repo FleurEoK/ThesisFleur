@@ -229,10 +229,10 @@ def main(args):
         if test_batch.shape != (2, 3, args.input_size, args.input_size):
             raise ValueError(f"Batch shape mismatch! Got {test_batch.shape}, expected (2, 3, {args.input_size}, {args.input_size})")
         
-        print("✓ Dataset and batching working correctly!")
+        print("Dataset and batching working correctly!")
         
     except Exception as e:
-        print(f"❌ Dataset test failed: {e}")
+        print(f"Dataset test failed: {e}")
         raise
 
     if True:  # args.distributed:
@@ -374,7 +374,7 @@ def main(args):
         print("✓ Forward pass successful!")
         
     except Exception as e:
-        print(f"❌ Training step test failed: {e}")
+        print(f"Training step test failed: {e}")
         import traceback
         traceback.print_exc()
         raise
