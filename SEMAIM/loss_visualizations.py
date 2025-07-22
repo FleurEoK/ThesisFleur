@@ -14,7 +14,7 @@ def find_log_file(output_dir):
         log_files = [f for f in files if f.endswith('.log.txt')]
         
         if not log_files:
-            print("❌ No .log.txt files found")
+            print(" No .log.txt files found")
             print("Available files:")
             for file in sorted(files):
                 print(f"  - {file}")
@@ -23,7 +23,7 @@ def find_log_file(output_dir):
         # Use the first log file found
         log_file = log_files[0]
         log_path = os.path.join(output_dir, log_file)
-        print(f"✅ Found log file: {log_file}")
+        print(f" Found log file: {log_file}")
         return log_path
         
     except Exception as e:
@@ -95,7 +95,7 @@ def plot_loss_curve(epochs, losses, output_path, title="Training Loss"):
     plt.grid(True, alpha=0.3)
     plt.legend()
     
-    # Add some statistics
+    # statistics
     if losses:
         min_loss = min(losses)
         min_epoch = epochs[losses.index(min_loss)]
@@ -128,32 +128,32 @@ def analyze_loss_trend(epochs, losses):
     print(f"Total change: {total_change:.4f}")
     
     if total_change < -0.001:
-        print("✅ Loss is decreasing - model is learning!")
+        print("Loss is decreasing - model is learning!")
     elif abs(total_change) < 0.001:
-        print("⚠️  Loss is relatively stable - model might not be learning much")
+        print(" Loss is relatively stable - model might not be learning much")
     else:
-        print("❌ Loss is increasing - there might be a training issue")
+        print("Loss is increasing - there might be a training issue")
     
     # Check for convergence
     if len(losses) >= 10:
         recent_losses = losses[-10:]
         recent_std = np.std(recent_losses)
         if recent_std < 0.001:
-            print("✅ Loss appears to have converged")
+            print(" Loss appears to have converged")
         else:
-            print(f"📊 Loss still changing (recent std: {recent_std:.4f})")
+            print(f"Loss still changing (recent std: {recent_std:.4f})")
     
     # Provide recommendations based on loss value
     if losses[-1] > 1.0:
-        print("\n⚠️  High final loss suggests:")
+        print("  High final loss suggests:")
         print("   - Model might not be learning effectively")
         print("   - Try lower learning rate (1e-5 or 5e-5)")
         print("   - Train for more epochs")
         print("   - Check if data preprocessing is correct")
     elif losses[-1] < 0.1:
-        print("\n✅ Low final loss suggests good learning")
+        print("Low final loss suggests good learning")
     else:
-        print(f"\n📊 Moderate final loss ({losses[-1]:.4f}) - could be better")
+        print(f" Moderate final loss ({losses[-1]:.4f}) - could be better")
 
 def main():
     parser = argparse.ArgumentParser('Simple Loss Visualization')
@@ -167,13 +167,13 @@ def main():
     log_file_path = find_log_file(args.output_dir)
     
     if not log_file_path:
-        print("❌ No log file found!")
+        print("No log file found!")
         return
     
     epochs, losses = read_loss_from_log_file(log_file_path)
     
     if not losses:
-        print("❌ No loss data found in log file!")
+        print("No loss data found in log file!")
         return
     
     # Plot the loss curve
@@ -182,8 +182,8 @@ def main():
     # Analyze the loss trend
     analyze_loss_trend(epochs, losses)
     
-    print(f"\n📊 Loss visualization complete!")
-    print(f"📈 Plot saved to: {args.save_plot}")
+    print(f"Loss visualization complete!")
+    print(f"Plot saved to: {args.save_plot}")
 
 if __name__ == '__main__':
     main()

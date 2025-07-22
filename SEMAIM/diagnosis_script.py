@@ -11,7 +11,7 @@ from models import models_semaim as models_aim
 
 def load_and_test_model(checkpoint_path, device='cpu'):
     """Load model and test its basic functionality"""
-    print("🔍 Loading and diagnosing model...")
+    print("Loading and diagnosing model...")
     
     # Load model
     model = models_aim.aim_base(
@@ -48,7 +48,7 @@ def load_and_test_model(checkpoint_path, device='cpu'):
 
 def test_model_outputs(model, test_image_path, device='cpu'):
     """Test what the model actually outputs"""
-    print("🧪 Testing model outputs...")
+    print("Testing model outputs...")
     
     # Load test image
     transform = transforms.Compose([
@@ -67,20 +67,20 @@ def test_model_outputs(model, test_image_path, device='cpu'):
         # Test regular forward pass
         try:
             loss, permutation, loss_map = model(image_tensor, None, None)
-            print(f"✅ Regular forward pass successful")
+            print(f"Regular forward pass successful")
             print(f"   Loss: {loss.item():.4f}")
             print(f"   Permutation shape: {permutation.shape}")
             print(f"   Loss map shape: {loss_map.shape}")
             print(f"   Permutation range: [{permutation.min():.3f}, {permutation.max():.3f}]")
             print(f"   Loss map range: [{loss_map.min():.3f}, {loss_map.max():.3f}]")
         except Exception as e:
-            print(f"❌ Regular forward pass failed: {e}")
+            print(f"Regular forward pass failed: {e}")
             return
         
         # Test forward_aim
         try:
             pred, perm = model.forward_aim(image_tensor, None)
-            print(f"✅ Forward_aim successful")
+            print(f"Forward_aim successful")
             print(f"   Pred shape: {pred.shape}")
             print(f"   Pred range: [{pred.min():.3f}, {pred.max():.3f}]")
             
@@ -89,32 +89,32 @@ def test_model_outputs(model, test_image_path, device='cpu'):
                 pred_patches = pred[:, 1:, :]  # Remove CLS token
                 try:
                     reconstruction = model.unpatchify(pred_patches)
-                    print(f"✅ Unpatchify successful")
+                    print(f"Unpatchify successful")
                     print(f"   Reconstruction shape: {reconstruction.shape}")
                     print(f"   Reconstruction range: [{reconstruction.min():.3f}, {reconstruction.max():.3f}]")
                     
                     # Check if reconstruction looks reasonable
                     if reconstruction.min() < -10 or reconstruction.max() > 10:
-                        print("⚠️  Reconstruction values seem extreme!")
+                        print(" Reconstruction values seem extreme!")
                     
                     return reconstruction
                 except Exception as e:
-                    print(f"❌ Unpatchify failed: {e}")
+                    print(f"Unpatchify failed: {e}")
             else:
-                print("❌ Model has no unpatchify method")
+                print("Model has no unpatchify method")
                 
         except Exception as e:
-            print(f"❌ Forward_aim failed: {e}")
+            print(f"Forward_aim failed: {e}")
 
 def check_training_data_quality(data_folder):
     """Check if training data looks reasonable"""
-    print("📊 Checking training data quality...")
+    print("Checking training data quality...")
     
     import glob
     image_files = glob.glob(os.path.join(data_folder, "*.jpg"))
     
     if not image_files:
-        print("❌ No training images found!")
+        print("No training images found!")
         return
     
     print(f"Found {len(image_files)} training images")
@@ -133,14 +133,14 @@ def check_training_data_quality(data_folder):
             
             # Check if image has reasonable content
             if np.std(img_array) < 10:
-                print("⚠️  Image has very low variance - might be too uniform")
+                print(" Image has very low variance - might be too uniform")
             
         except Exception as e:
-            print(f"❌ Error reading {img_path}: {e}")
+            print(f" Error reading {img_path}: {e}")
 
 def create_simple_test_reconstruction(model, test_image_path, output_path):
     """Create a simple test reconstruction to see what the model produces"""
-    print("🎨 Creating test reconstruction...")
+    print(" Creating test reconstruction...")
     
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
@@ -173,7 +173,7 @@ def create_simple_test_reconstruction(model, test_image_path, output_path):
                 from torchvision.transforms import ToPILImage
                 recon_pil = ToPILImage()(recon_denorm[0])
                 recon_pil.save(output_path)
-                print(f"✅ Test reconstruction saved to {output_path}")
+                print(f" Test reconstruction saved to {output_path}")
                 
                 # Create comparison
                 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
@@ -189,10 +189,10 @@ def create_simple_test_reconstruction(model, test_image_path, output_path):
                 plt.savefig(comparison_path, dpi=150, bbox_inches='tight')
                 plt.close()
                 
-                print(f"✅ Comparison saved to {comparison_path}")
+                print(f"Comparison saved to {comparison_path}")
                 
         except Exception as e:
-            print(f"❌ Could not create reconstruction: {e}")
+            print(f"Could not create reconstruction: {e}")
 
 def main():
     parser = argparse.ArgumentParser('Training Diagnosis')
@@ -205,7 +205,7 @@ def main():
     
     os.makedirs(args.output_dir, exist_ok=True)
     
-    print("🔬 Starting model diagnosis...")
+    print("Starting model diagnosis...")
     
     # Load model
     model = load_and_test_model(args.checkpoint_path)
@@ -221,7 +221,7 @@ def main():
     output_path = os.path.join(args.output_dir, 'test_reconstruction.png')
     create_simple_test_reconstruction(model, args.test_image, output_path)
     
-    print("\n💡 RECOMMENDATIONS:")
+    print(" RECOMMENDATIONS:")
     print("1. Check if loss was decreasing during training")
     print("2. Try training for more epochs (200-500)")
     print("3. Try a smaller learning rate (1e-5)")

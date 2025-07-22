@@ -119,8 +119,8 @@ def reconstruct_image(model, image_tensor, device):
     
     with torch.no_grad():
         # Forward pass - the model should output reconstruction
-        # Based on your training, the model takes (samples, enc_tokens, attention)
-        # For inference, we can pass None for enc_tokens and attention
+        # The model takes (samples, enc_tokens, attention)
+        # For inference, pass None for enc_tokens and attention
         loss, permutation, loss_map = model(image_tensor, None, None)
         
         print("Model outputs:")
@@ -129,12 +129,11 @@ def reconstruct_image(model, image_tensor, device):
         print(f"  Loss map shape: {loss_map.shape if hasattr(loss_map, 'shape') else type(loss_map)}")
         
         # The permutation tensor [1, 196] contains patch predictions
-        # We need to reshape and convert back to image format
+        # reshape and convert back to image format
         # 196 patches = 14x14 patches for 224x224 image (16x16 patches each)
         
         try:
             # Try to get the actual reconstruction from the model
-            # The model might have a method to convert patch predictions back to image
             if hasattr(model, 'unpatchify'):
                 # Convert patch predictions back to image
                 reconstruction = model.unpatchify(permutation)
@@ -145,13 +144,12 @@ def reconstruct_image(model, image_tensor, device):
                 patch_size = 16  # Standard patch size for ViT
                 
                 # Reshape to patch grid
-                # This is a simplified approach - the actual reconstruction depends on the model architecture
                 reconstruction = permutation.view(batch_size, num_patches, num_patches, -1)
                 
-                # If the model outputs RGB values per patch, we need to reshape appropriately
+                #eshape appropriately
                 print(f"Permutation reshaped: {reconstruction.shape}")
                 
-                # For now, let's use the loss_map which might be more interpretable
+                #use the loss_map for better interpretability
                 reconstruction = loss_map.view(batch_size, num_patches, num_patches)
                 reconstruction = reconstruction.unsqueeze(1).repeat(1, 3, 1, 1)  # Make it 3-channel
                 

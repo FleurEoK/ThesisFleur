@@ -134,5 +134,5 @@ if __name__ == "__main__":
     with open(json_path, 'w') as f:
         json.dump(permutation_data, f, indent=2)
     
-    print(f"\nDone! Generated {num_permutations} permuted images in '{output_dir}/' directory")
+    print(f"Done! Generated {num_permutations} permuted images in '{output_dir}/' directory")
     print(f"Permutation data saved to '{json_path}'")
