@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#SBATCH --partition=tue.gpu.q
+#SBATCH --time=24:00:00
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=1
+#SBATCH --gpus-per-node=1
+#SBATCH --cpus-per-task=1
+ 
+# Load necessary modules (adjust based on your environment)
+source $HOME/Falcon/env.sh
+
+set -e -x
+
+# date
+# unzip $HOME/imagenet-object-localization-challenge.zip -d $TMPDIR > /dev/null
+# date
+
+# ## If the above is used, also change --data_path to point to the data, namely:
+# --data_path $HOME/imagenet-subset/ILSVRC/Data/CLS-LOC
+
+date
+#python -m torch.distributed.launch --nproc_per_node 1 --nnodes 1 --node_rank 0 \
+python3   $HOME/Falcon/heatmap_inference.py 
+date
