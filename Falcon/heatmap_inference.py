@@ -300,7 +300,7 @@ def process_image_folder(input_folder, output_folder, detection_method='color', 
 if __name__ == "__main__":
     # Configuration
     INPUT_FOLDER = "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images"  # Change this
-    OUTPUT_FOLDER = "heatmap_results_color"
+    OUTPUT_FOLDER = "heatmap_results_color4"
     DETECTION_METHOD = 'color'  # 'color' or 'lines'
     SHOW_DEBUG = False
     

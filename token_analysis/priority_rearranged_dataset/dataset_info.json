@@ -1,0 +1,12 @@
+{
+  "dataset_description": "Priority-rearranged images based on heatmap token ordering",
+  "creation_method": "Images rearranged by patch priority derived from annotation overlap heatmaps",
+  "patch_size": 16,
+  "total_images": 50,
+  "file_naming": "original_name_priority_rearranged.jpg",
+  "creation_date": "2025-07-29T11:52:11",
+  "image_statistics": {
+    "successful_conversions": 0,
+    "failed_conversions": 50
+  }
+}

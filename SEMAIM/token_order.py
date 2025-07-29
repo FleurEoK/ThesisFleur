@@ -281,10 +281,21 @@ def create_token_sequence_visualization(image, token_order_info, output_path, to
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
     plt.close()
 
-def create_image_in_token_order(image, token_order_info, output_path, tokens_per_row=None):
+def create_image_in_token_order(image, token_order_info, base_name, dataset_folder, viz_folder=None, tokens_per_row=None):
     """
     Display the entire image rearranged in token priority order.
     This shows what the image looks like when viewed in the order the model would process tokens.
+    
+    Args:
+        image: Original image
+        token_order_info: Token ordering information
+        base_name: Base name for the image (without extension)
+        dataset_folder: Folder to save dataset images (just the rearranged image)
+        viz_folder: Optional folder to save visualization comparisons
+        tokens_per_row: Number of tokens per row in rearranged image
+    
+    Returns:
+        rearranged_image: The rearranged image array
     """
     token_order = token_order_info['token_order']
     patch_size = token_order_info['patch_size']
@@ -292,7 +303,7 @@ def create_image_in_token_order(image, token_order_info, output_path, tokens_per
     
     if not token_order:
         print("No tokens to rearrange")
-        return
+        return None
     
     # Auto-calculate grid size if not specified
     if tokens_per_row is None:
@@ -334,85 +345,126 @@ def create_image_in_token_order(image, token_order_info, output_path, tokens_per
             
             rearranged_image[new_y_start:new_y_end, new_x_start:new_x_end] = original_patch
     
-    # Create visualization comparing original and rearranged
-    fig, axes = plt.subplots(1, 3, figsize=(20, 7))
+    # Save the rearranged image for dataset use
+    dataset_image_path = os.path.join(dataset_folder, f"{base_name}_priority_rearranged.jpg")
+    cv2.imwrite(dataset_image_path, rearranged_image)
+    print(f"Saved dataset image: {dataset_image_path}")
     
-    # Original image
-    axes[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    axes[0].set_title('Original Image')
-    axes[0].axis('off')
-    
-    # Rearranged image
-    axes[1].imshow(cv2.cvtColor(rearranged_image, cv2.COLOR_BGR2RGB))
-    axes[1].set_title(f'Image in Token Priority Order\n({total_tokens} tokens, {tokens_per_row} per row)')
-    axes[1].axis('off')
-    
-    # Add grid lines to show token boundaries
-    for i in range(0, rearranged_height, patch_size):
-        axes[1].axhline(i, color='white', linewidth=0.5, alpha=0.7)
-    for j in range(0, rearranged_width, patch_size):
-        axes[1].axvline(j, color='white', linewidth=0.5, alpha=0.7)
-    
-    # Token priority heatmap
-    # Create a heatmap showing token priorities
-    priority_map = np.full((num_rows, tokens_per_row), -1, dtype=float)
-    
-    for idx, token in enumerate(token_order):
-        new_row = idx // tokens_per_row
-        new_col = idx % tokens_per_row
-        # Use inverse order so highest priority (order 0) shows as highest value
-        priority_map[new_row, new_col] = total_tokens - idx
-    
-    # Mask unfilled positions
-    priority_map_masked = np.ma.masked_where(priority_map == -1, priority_map)
-    
-    im = axes[2].imshow(priority_map_masked, cmap='viridis', interpolation='nearest')
-    axes[2].set_title('Token Priority Map\n(Brighter = Higher Priority)')
-    
-    # Add colorbar
-    cbar = plt.colorbar(im, ax=axes[2], shrink=0.8)
-    cbar.set_label('Priority Rank')
-    
-    # Add grid
-    for i in range(num_rows + 1):
-        axes[2].axhline(i - 0.5, color='white', linewidth=0.5, alpha=0.5)
-    for j in range(tokens_per_row + 1):
-        axes[2].axvline(j - 0.5, color='white', linewidth=0.5, alpha=0.5)
-    
-    # Add text annotations for first few tokens
-    for idx in range(min(10, total_tokens)):  # Show first 10 token numbers
-        new_row = idx // tokens_per_row
-        new_col = idx % tokens_per_row
-        axes[2].text(new_col, new_row, str(idx), 
-                    ha='center', va='center', fontsize=8, 
-                    color='white', weight='bold')
-    
-    plt.suptitle('Image Rearranged by Token Priority', fontsize=16)
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=150, bbox_inches='tight')
-    plt.close()
-    
-    # Also save just the rearranged image
-    rearranged_only_path = output_path.replace('.png', '_rearranged_only.png')
-    cv2.imwrite(rearranged_only_path, rearranged_image)
-    
-    print(f"Saved rearranged image comparison: {output_path}")
-    print(f"Saved rearranged image only: {rearranged_only_path}")
+    # Create visualization comparison if viz_folder is specified
+    if viz_folder is not None:
+        fig, axes = plt.subplots(1, 3, figsize=(20, 7))
+        
+        # Original image
+        axes[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        axes[0].set_title('Original Image')
+        axes[0].axis('off')
+        
+        # Rearranged image
+        axes[1].imshow(cv2.cvtColor(rearranged_image, cv2.COLOR_BGR2RGB))
+        axes[1].set_title(f'Image in Token Priority Order\n({total_tokens} tokens, {tokens_per_row} per row)')
+        axes[1].axis('off')
+        
+        # Add grid lines to show token boundaries
+        for i in range(0, rearranged_height, patch_size):
+            axes[1].axhline(i, color='white', linewidth=0.5, alpha=0.7)
+        for j in range(0, rearranged_width, patch_size):
+            axes[1].axvline(j, color='white', linewidth=0.5, alpha=0.7)
+        
+        # Token priority heatmap
+        priority_map = np.full((num_rows, tokens_per_row), -1, dtype=float)
+        
+        for idx, token in enumerate(token_order):
+            new_row = idx // tokens_per_row
+            new_col = idx % tokens_per_row
+            # Use inverse order so highest priority (order 0) shows as highest value
+            priority_map[new_row, new_col] = total_tokens - idx
+        
+        # Mask unfilled positions
+        priority_map_masked = np.ma.masked_where(priority_map == -1, priority_map)
+        
+        im = axes[2].imshow(priority_map_masked, cmap='viridis', interpolation='nearest')
+        axes[2].set_title('Token Priority Map\n(Brighter = Higher Priority)')
+        
+        # Add colorbar
+        cbar = plt.colorbar(im, ax=axes[2], shrink=0.8)
+        cbar.set_label('Priority Rank')
+        
+        # Add grid
+        for i in range(num_rows + 1):
+            axes[2].axhline(i - 0.5, color='white', linewidth=0.5, alpha=0.5)
+        for j in range(tokens_per_row + 1):
+            axes[2].axvline(j - 0.5, color='white', linewidth=0.5, alpha=0.5)
+        
+        # Add text annotations for first few tokens
+        for idx in range(min(10, total_tokens)):  # Show first 10 token numbers
+            new_row = idx // tokens_per_row
+            new_col = idx % tokens_per_row
+            axes[2].text(new_col, new_row, str(idx), 
+                        ha='center', va='center', fontsize=8, 
+                        color='white', weight='bold')
+        
+        plt.suptitle('Image Rearranged by Token Priority', fontsize=16)
+        plt.tight_layout()
+        
+        viz_comparison_path = os.path.join(viz_folder, f"{base_name}_rearranged_comparison.png")
+        plt.savefig(viz_comparison_path, dpi=150, bbox_inches='tight')
+        plt.close()
+        print(f"Saved visualization: {viz_comparison_path}")
     
     return rearranged_image
 
-def process_heatmap_results_folder(results_folder, output_folder="token_analysis", image_folder=None, patch_size=16, show_debug=False):
+def create_dataset_info_file(dataset_folder, results_summary, patch_size):
     """
-    Process a folder containing heatmap results to create token orderings.
+    Create an info file for the dataset describing the rearrangement process.
+    """
+    info = {
+        "dataset_description": "Priority-rearranged images based on heatmap token ordering",
+        "creation_method": "Images rearranged by patch priority derived from annotation overlap heatmaps",
+        "patch_size": patch_size,
+        "total_images": len(results_summary),
+        "file_naming": "original_name_priority_rearranged.jpg",
+        "creation_date": str(np.datetime64('now')),
+        "image_statistics": {
+            "successful_conversions": sum(1 for r in results_summary.values() if r.get('rearranged_successfully', False)),
+            "failed_conversions": sum(1 for r in results_summary.values() if not r.get('rearranged_successfully', False))
+        }
+    }
+    
+    info_path = os.path.join(dataset_folder, "dataset_info.json")
+    with open(info_path, 'w') as f:
+        json.dump(info, f, indent=2)
+    
+    print(f"Created dataset info file: {info_path}")
+    return info_path
+
+def process_heatmap_results_folder(results_folder, output_folder="token_analysis", image_folder=None, 
+                                 patch_size=16, create_dataset=True, show_debug=False):
+    """
+    Process a folder containing heatmap results to create token orderings and optionally a dataset.
     
     Args:
         results_folder: Folder containing *_heatmap.npy files
         output_folder: Output folder for token analysis results
         image_folder: Folder containing original images (if different from results_folder)
         patch_size: Size of each token patch
+        create_dataset: Whether to create a separate dataset folder with rearranged images
         show_debug: Whether to print detailed debug information
     """
+    # Create main output folder
     os.makedirs(output_folder, exist_ok=True)
+    
+    # Create subfolders
+    analysis_folder = os.path.join(output_folder, "analysis")
+    os.makedirs(analysis_folder, exist_ok=True)
+    
+    if create_dataset:
+        dataset_folder = os.path.join(output_folder, "priority_rearranged_dataset")
+        os.makedirs(dataset_folder, exist_ok=True)
+        visualizations_folder = os.path.join(output_folder, "visualizations")
+        os.makedirs(visualizations_folder, exist_ok=True)
+    else:
+        dataset_folder = None
+        visualizations_folder = None
     
     # Find matching heatmap and image files
     matches = find_matching_files(results_folder, image_folder)
@@ -429,8 +481,13 @@ def process_heatmap_results_folder(results_folder, output_folder="token_analysis
         print(f"Looking for images in same folder: {results_folder}")
     print(f"Using patch size: {patch_size}x{patch_size}")
     
+    if create_dataset:
+        print(f"Dataset images will be saved to: {dataset_folder}")
+        print(f"Visualizations will be saved to: {visualizations_folder}")
+    
     all_results = {}
     successful = 0
+    dataset_summary = {}
     
     for i, match in enumerate(matches, 1):
         print(f"\n{'='*60}")
@@ -460,59 +517,92 @@ def process_heatmap_results_folder(results_folder, output_folder="token_analysis
                 'image_name': match['base_name'],
                 'heatmap_path': match['heatmap_path'],
                 'image_path': match['image_path'],
-                'token_ordering': token_order_info
+                'token_ordering': token_order_info,
+                'rearranged_successfully': False
             }
             
             # Save individual JSON
-            json_path = os.path.join(output_folder, f"{match['base_name']}_token_order.json")
+            json_path = os.path.join(analysis_folder, f"{match['base_name']}_token_order.json")
             with open(json_path, 'w') as f:
                 json.dump(result, f, indent=2)
             
             # Create visualizations if image is available
             if image is not None:
                 # Main analysis visualization
-                viz_path = os.path.join(output_folder, f"{match['base_name']}_token_analysis.png")
+                viz_path = os.path.join(analysis_folder, f"{match['base_name']}_token_analysis.png")
                 visualize_token_order(image, heatmap, token_order_info, viz_path)
                 
                 # Token sequence visualization (top tokens only)
-                seq_path = os.path.join(output_folder, f"{match['base_name']}_token_sequence.png")
+                seq_path = os.path.join(analysis_folder, f"{match['base_name']}_token_sequence.png")
                 create_token_sequence_visualization(image, token_order_info, seq_path)
                 
-                # NEW: Full image rearranged in token order
-                rearranged_path = os.path.join(output_folder, f"{match['base_name']}_rearranged_by_priority.png")
-                create_image_in_token_order(image, token_order_info, rearranged_path)
+                # Create rearranged image
+                rearranged_image = create_image_in_token_order(
+                    image, 
+                    token_order_info, 
+                    match['base_name'],
+                    dataset_folder if create_dataset else analysis_folder,
+                    visualizations_folder if create_dataset else None
+                )
                 
-                print(f"✓ Created all visualizations including rearranged image")
+                if rearranged_image is not None:
+                    result['rearranged_successfully'] = True
+                    if create_dataset:
+                        dataset_summary[match['base_name']] = {
+                            'original_image': match['image_path'],
+                            'rearranged_image': os.path.join(dataset_folder, f"{match['base_name']}_priority_rearranged.jpg"),
+                            'original_shape': image.shape,
+                            'rearranged_shape': rearranged_image.shape,
+                            'total_tokens': token_order_info['num_patches']['total'],
+                            'nonzero_tokens': token_order_info['value_statistics']['nonzero_patches']
+                        }
+                
+                print(f"Created all outputs")
             else:
-                print("! Skipped visualizations (no image)")
+                print("Skipped visualizations (no image)")
             
             all_results[match['base_name']] = result
             successful += 1
             
             # Print summary
             stats = token_order_info['value_statistics']
-            print(f"✓ Total tokens: {token_order_info['num_patches']['total']}")
-            print(f"✓ Non-zero tokens: {stats['nonzero_patches']}")
-            print(f"✓ Value range: {stats['min_value']:.3f} - {stats['max_value']:.3f}")
+            print(f"Total tokens: {token_order_info['num_patches']['total']}")
+            print(f"Non-zero tokens: {stats['nonzero_patches']}")
+            print(f"Value range: {stats['min_value']:.3f} - {stats['max_value']:.3f}")
             
         except Exception as e:
-            print(f"✗ Error: {str(e)}")
+            print(f"Error: {str(e)}")
             if show_debug:
                 import traceback
                 traceback.print_exc()
     
     # Save combined results
-    combined_json_path = os.path.join(output_folder, "all_token_orders.json")
+    combined_json_path = os.path.join(analysis_folder, "all_token_orders.json")
     with open(combined_json_path, 'w') as f:
         json.dump(all_results, f, indent=2)
+    
+    # Create dataset info if dataset was created
+    if create_dataset and dataset_summary:
+        dataset_info_path = create_dataset_info_file(dataset_folder, dataset_summary, patch_size)
+        
+        # Save dataset summary
+        dataset_summary_path = os.path.join(dataset_folder, "dataset_summary.json")
+        with open(dataset_summary_path, 'w') as f:
+            json.dump(dataset_summary, f, indent=2)
+        print(f"Created dataset summary: {dataset_summary_path}")
     
     print(f"\n{'='*60}")
     print(f"SUMMARY:")
     print(f"Successfully processed: {successful}/{len(matches)} files")
     print(f"Results saved to: {output_folder}")
-    print(f"Combined JSON: {combined_json_path}")
+    print(f"  - Analysis files: {analysis_folder}")
+    if create_dataset:
+        print(f"  - Dataset images: {dataset_folder}")
+        print(f"  - Visualizations: {visualizations_folder}")
+        print(f"  - Dataset contains: {len(dataset_summary)} rearranged images")
+    print(f"Combined analysis JSON: {combined_json_path}")
     
-    return all_results
+    return all_results, dataset_summary if create_dataset else None
 
 if __name__ == "__main__":
     # Configuration
@@ -520,17 +610,23 @@ if __name__ == "__main__":
     IMAGE_FOLDER = "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/"  # Folder with original images
     OUTPUT_FOLDER = "token_analysis"
     PATCH_SIZE = 16  # ViT-style tokens (16x16)
+    CREATE_DATASET = True  # Whether to create a separate dataset folder
     
     # Process the heatmap results
-    results = process_heatmap_results_folder(
+    results, dataset_info = process_heatmap_results_folder(
         results_folder=HEATMAP_RESULTS_FOLDER,
-        image_folder=IMAGE_FOLDER,  # Now specify separate image folder
+        image_folder=IMAGE_FOLDER,
         output_folder=OUTPUT_FOLDER,
         patch_size=PATCH_SIZE,
+        create_dataset=CREATE_DATASET,
         show_debug=True
     )
     
     print(f"\nProcessed {len(results)} images successfully!")
+    
+    if CREATE_DATASET and dataset_info:
+        print(f"Created dataset with {len(dataset_info)} images in priority-rearranged format")
+        print("Dataset is ready for use in machine learning pipelines!")
     
     # Example: Access specific result
     # if results:
