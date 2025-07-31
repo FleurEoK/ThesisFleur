@@ -1,0 +1,802 @@
+{
+  "falcon_imagenet_img_10154_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_10154_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_10154_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1227
+  },
+  "falcon_imagenet_img_10489_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_10489_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_10489_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1616
+  },
+  "falcon_imagenet_img_11870_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_11870_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_11870_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2221
+  },
+  "falcon_imagenet_img_12490_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_12490_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_12490_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2287
+  },
+  "falcon_imagenet_img_12998_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_12998_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_12998_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1823
+  },
+  "falcon_imagenet_img_14560_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_14560_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_14560_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2256
+  },
+  "falcon_imagenet_img_17684_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_17684_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_17684_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1211
+  },
+  "falcon_imagenet_img_17805_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_17805_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_17805_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2304
+  },
+  "falcon_imagenet_img_1871_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_1871_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_1871_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 941
+  },
+  "falcon_imagenet_img_19404_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_19404_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_19404_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1680
+  },
+  "falcon_imagenet_img_19828_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_19828_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_19828_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1980
+  },
+  "falcon_imagenet_img_20013_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_20013_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_20013_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1679
+  },
+  "falcon_imagenet_img_22034_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_22034_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_22034_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1040
+  },
+  "falcon_imagenet_img_24466_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_24466_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_24466_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 917
+  },
+  "falcon_imagenet_img_2472_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_2472_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_2472_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2256
+  },
+  "falcon_imagenet_img_25088_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_25088_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_25088_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 313
+  },
+  "falcon_imagenet_img_25732_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_25732_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_25732_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1600
+  },
+  "falcon_imagenet_img_26392_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_26392_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_26392_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 352
+  },
+  "falcon_imagenet_img_26718_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_26718_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_26718_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1111
+  },
+  "falcon_imagenet_img_2673_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_2673_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_2673_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1325
+  },
+  "falcon_imagenet_img_27250_with_3_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_27250_with_3_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_27250_with_3_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1034
+  },
+  "falcon_imagenet_img_31399_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_31399_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_31399_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 418
+  },
+  "falcon_imagenet_img_31507_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_31507_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_31507_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1932
+  },
+  "falcon_imagenet_img_31583_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_31583_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_31583_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1077
+  },
+  "falcon_imagenet_img_31839_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_31839_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_31839_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 398
+  },
+  "falcon_imagenet_img_32388_with_3_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_32388_with_3_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_32388_with_3_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 440
+  },
+  "falcon_imagenet_img_34935_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_34935_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_34935_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 939
+  },
+  "falcon_imagenet_img_35476_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_35476_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_35476_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1767
+  },
+  "falcon_imagenet_img_36224_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_36224_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_36224_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 965
+  },
+  "falcon_imagenet_img_36528_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_36528_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_36528_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1536
+  },
+  "falcon_imagenet_img_39376_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_39376_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_39376_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 2304
+  },
+  "falcon_imagenet_img_40099_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_40099_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_40099_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 765
+  },
+  "falcon_imagenet_img_40137_with_3_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_40137_with_3_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_40137_with_3_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 319
+  },
+  "falcon_imagenet_img_40972_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_40972_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_40972_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 621
+  },
+  "falcon_imagenet_img_41090_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_41090_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_41090_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1334
+  },
+  "falcon_imagenet_img_42100_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_42100_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_42100_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 328
+  },
+  "falcon_imagenet_img_42285_with_3_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_42285_with_3_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_42285_with_3_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 780
+  },
+  "falcon_imagenet_img_43063_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_43063_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_43063_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1997
+  },
+  "falcon_imagenet_img_43_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_43_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_43_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1487
+  },
+  "falcon_imagenet_img_44879_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_44879_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_44879_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 596
+  },
+  "falcon_imagenet_img_46243_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_46243_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_46243_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1865
+  },
+  "falcon_imagenet_img_4736_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_4736_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_4736_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1274
+  },
+  "falcon_imagenet_img_47818_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_47818_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_47818_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 648
+  },
+  "falcon_imagenet_img_4880_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_4880_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_4880_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 849
+  },
+  "falcon_imagenet_img_4900_with_4_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_4900_with_4_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_4900_with_4_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 144
+  },
+  "falcon_imagenet_img_6421_with_2_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_6421_with_2_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_6421_with_2_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 279
+  },
+  "falcon_imagenet_img_7401_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_7401_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_7401_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 291
+  },
+  "falcon_imagenet_img_7704_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_7704_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_7704_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1932
+  },
+  "falcon_imagenet_img_7940_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_7940_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_7940_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 553
+  },
+  "falcon_imagenet_img_9636_with_1_predictions_and_gt": {
+    "original_image": "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/FALcon-main/results/imagenet_images/falcon_imagenet_img_9636_with_1_predictions_and_gt.jpeg",
+    "rearranged_image": "token_analysis\\priority_rearranged_dataset\\falcon_imagenet_img_9636_with_1_predictions_and_gt_priority_rearranged.jpg",
+    "original_shape": [
+      775,
+      775,
+      3
+    ],
+    "rearranged_shape": [
+      768,
+      768,
+      3
+    ],
+    "total_tokens": 2304,
+    "nonzero_tokens": 1672
+  }
+}
