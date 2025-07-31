@@ -7,6 +7,11 @@ import glob
 from skimage import morphology
 from scipy import ndimage
 
+
+# I suspect that the main issues lie within this function. I am trying to detect the dashed lines from the regions as efficiently as possible
+# and then use the inside of that region for the construction of the heatmap. The results for this file are in 
+# 'heatmap_results_color' it only performs as intended some of the times. The other results files stem from other attempts
+# to fix this issue, none of which resulted in better results.
 def detect_dashed_rectangles(image_path, debug=False):
     """
     Detect dashed line rectangles in an image.
