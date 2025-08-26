@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Polygon, box
+from shapely.ops import unary_union
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -31,7 +32,7 @@ class RectangleOverlapAnalyzer:
             data_folder: path to folder containing *_bbox.json files
             
         Returns:
-            Combined dictionary with all bbox data
+            Combined dictionary with all bbox data (now supports multiple bboxes per image)
         """
         bbox_files = glob.glob(os.path.join(data_folder, "*_bbox.json"))
         print(f"Found {len(bbox_files)} bbox files")
@@ -97,16 +98,47 @@ class RectangleOverlapAnalyzer:
         x, y, w, h = bbox
         return box(x, y, x + w, y + h)
     
+    def create_image_polygon(self, bbox_list):
+        """
+        Create a single polygon from multiple bounding boxes for an image
+        
+        Args:
+            bbox_list: list of bounding boxes for a single image
+                      Can be a single bbox [x, y, w, h] or list of bboxes
+                      
+        Returns:
+            Single polygon representing the union of all bounding boxes
+        """
+        # Handle case where bbox_list is a single bbox (not nested)
+        if isinstance(bbox_list[0], (int, float)):
+            # Single bbox case: [x, y, w, h]
+            return self.bbox_to_polygon(bbox_list)
+        
+        # Multiple bboxes case: [[x1, y1, w1, h1], [x2, y2, w2, h2], ...]
+        polygons = []
+        for bbox in bbox_list:
+            if len(bbox) == 4:  # Ensure it's a valid bbox
+                polygons.append(self.bbox_to_polygon(bbox))
+        
+        if not polygons:
+            raise ValueError("No valid bounding boxes found")
+        
+        if len(polygons) == 1:
+            return polygons[0]
+        else:
+            # Create union of all polygons for this image
+            return unary_union(polygons)
+    
     def analyze_single_image(self, bbox_data, image_path):
         """
-        Analyze overlap for a single image
+        Analyze overlap for a single image (with potentially multiple regions)
         
         Args:
             bbox_data: dictionary with image paths as keys and bbox lists as values
             image_path: specific image path to analyze
             
         Returns:
-            GeoDataFrame with patch overlap counts
+            GeoDataFrame with patch overlap counts for this image
         """
         if image_path not in bbox_data:
             raise ValueError(f"Image path {image_path} not found in bbox data")
@@ -114,14 +146,14 @@ class RectangleOverlapAnalyzer:
         # Create patch polygons
         patches_gdf = self.create_patch_polygons()
         
-        # Get bounding box for this image
-        bbox = bbox_data[image_path]
-        rect_polygon = self.bbox_to_polygon(bbox)
+        # Get bounding boxes for this image and create unified polygon
+        bbox_list = bbox_data[image_path]
+        image_polygon = self.create_image_polygon(bbox_list)
         
         # Count overlaps
         overlap_counts = []
         for idx, patch in patches_gdf.iterrows():
-            if patch.geometry.intersects(rect_polygon):
+            if patch.geometry.intersects(image_polygon):
                 overlap_counts.append(1)
             else:
                 overlap_counts.append(0)
@@ -129,11 +161,19 @@ class RectangleOverlapAnalyzer:
         patches_gdf['overlap_count'] = overlap_counts
         patches_gdf['image_path'] = image_path
         
+        # Store additional info about the image
+        if isinstance(bbox_list[0], (int, float)):
+            num_regions = 1
+        else:
+            num_regions = len(bbox_list)
+        
+        patches_gdf['num_regions'] = num_regions
+        
         return patches_gdf
     
     def analyze_multiple_images(self, bbox_data, image_paths=None):
         """
-        Analyze overlap for multiple images
+        Analyze overlap for multiple images (each with potentially multiple regions)
         
         Args:
             bbox_data: dictionary with image paths as keys and bbox lists as values
@@ -150,6 +190,8 @@ class RectangleOverlapAnalyzer:
         
         # Initialize overlap counts
         cumulative_counts = np.zeros(len(patches_gdf))
+        total_regions = 0
+        images_processed = 0
         
         # Process each image
         for image_path in image_paths:
@@ -157,15 +199,30 @@ class RectangleOverlapAnalyzer:
                 print(f"Warning: {image_path} not found in bbox data")
                 continue
                 
-            bbox = bbox_data[image_path]
-            rect_polygon = self.bbox_to_polygon(bbox)
-            
-            # Count overlaps for this image
-            for idx, patch in patches_gdf.iterrows():
-                if patch.geometry.intersects(rect_polygon):
-                    cumulative_counts[idx] += 1
+            try:
+                bbox_list = bbox_data[image_path]
+                image_polygon = self.create_image_polygon(bbox_list)
+                
+                # Count regions in this image
+                if isinstance(bbox_list[0], (int, float)):
+                    total_regions += 1
+                else:
+                    total_regions += len(bbox_list)
+                
+                # Count overlaps for this image's unified polygon
+                for idx, patch in patches_gdf.iterrows():
+                    if patch.geometry.intersects(image_polygon):
+                        cumulative_counts[idx] += 1
+                
+                images_processed += 1
+                
+            except Exception as e:
+                print(f"Error processing {image_path}: {e}")
+                continue
         
         patches_gdf['overlap_count'] = cumulative_counts
+        patches_gdf['total_images_processed'] = images_processed
+        patches_gdf['total_regions'] = total_regions
         
         # Sort by overlap count (descending)
         patches_gdf = patches_gdf.sort_values('overlap_count', ascending=False).reset_index(drop=True)
@@ -202,20 +259,20 @@ class RectangleOverlapAnalyzer:
         Analyze overlap patterns by class (assuming class info is in file path)
         
         Returns:
-            Dictionary with class-wise statistics
+            Dictionary with class-wise bbox data
         """
-        class_stats = defaultdict(list)
+        class_data = defaultdict(dict)
         
         # Extract class from file paths and group
-        for image_path, bbox in bbox_data.items():
+        for image_path, bbox_list in bbox_data.items():
             # Extract class from path (assuming format like /path/to/class/image.jpg)
             try:
                 class_name = image_path.split('/')[-2]  # Get parent directory name
-                class_stats[class_name].append(bbox)
+                class_data[class_name][image_path] = bbox_list
             except:
-                class_stats['unknown'].append(bbox)
+                class_data['unknown'][image_path] = bbox_list
         
-        return dict(class_stats)
+        return dict(class_data)
 
     def get_patch_statistics(self, patches_gdf):
         """Get statistics about patch overlaps"""
@@ -226,7 +283,46 @@ class RectangleOverlapAnalyzer:
             'mean_overlap_count': patches_gdf['overlap_count'].mean(),
             'patch_utilization': len(patches_gdf[patches_gdf['overlap_count'] > 0]) / len(patches_gdf) * 100
         }
+        
+        # Add image-specific stats if available
+        if 'total_images_processed' in patches_gdf.columns:
+            stats['total_images_processed'] = patches_gdf['total_images_processed'].iloc[0]
+        if 'total_regions' in patches_gdf.columns:
+            stats['total_regions'] = patches_gdf['total_regions'].iloc[0]
+            
         return stats
+
+    def analyze_region_distribution(self, bbox_data):
+        """
+        Analyze the distribution of regions per image
+        
+        Returns:
+            Dictionary with region distribution statistics
+        """
+        region_counts = []
+        
+        for image_path, bbox_list in bbox_data.items():
+            if isinstance(bbox_list[0], (int, float)):
+                # Single bbox
+                region_counts.append(1)
+            else:
+                # Multiple bboxes
+                region_counts.append(len(bbox_list))
+        
+        region_counts = np.array(region_counts)
+        
+        distribution_stats = {
+            'total_images': len(region_counts),
+            'total_regions': region_counts.sum(),
+            'mean_regions_per_image': region_counts.mean(),
+            'median_regions_per_image': np.median(region_counts),
+            'max_regions_per_image': region_counts.max(),
+            'min_regions_per_image': region_counts.min(),
+            'images_with_single_region': np.sum(region_counts == 1),
+            'images_with_multiple_regions': np.sum(region_counts > 1)
+        }
+        
+        return distribution_stats
 
 # Main processing function for all files
 def process_all_bbox_files(data_folder, output_folder=None):
@@ -254,8 +350,19 @@ def process_all_bbox_files(data_folder, output_folder=None):
         print("No bbox data found!")
         return
     
+    # Analyze region distribution
+    print("\nAnalyzing region distribution...")
+    region_stats = analyzer.analyze_region_distribution(all_bbox_data)
+    print("Region Distribution Statistics:")
+    print("-" * 40)
+    for key, value in region_stats.items():
+        if isinstance(value, float):
+            print(f"{key}: {value:.2f}")
+        else:
+            print(f"{key}: {value}")
+    
     # Analyze all images together
-    print("Analyzing overlaps for all images...")
+    print("\nAnalyzing overlaps for all images...")
     result = analyzer.analyze_multiple_images(all_bbox_data)
     
     # Save overall results
@@ -283,17 +390,12 @@ def process_all_bbox_files(data_folder, output_folder=None):
     class_data = analyzer.get_class_analysis(all_bbox_data)
     
     class_results = {}
-    for class_name, class_bboxes in class_data.items():
-        if len(class_bboxes) < 5:  # Skip classes with too few samples
+    for class_name, class_bbox_data in class_data.items():
+        if len(class_bbox_data) < 5:  # Skip classes with too few samples
             continue
-            
-        # Create temporary bbox data for this class
-        temp_bbox_data = {}
-        for i, bbox in enumerate(class_bboxes):
-            temp_bbox_data[f"{class_name}_{i}"] = bbox
         
         # Analyze this class
-        class_result = analyzer.analyze_multiple_images(temp_bbox_data)
+        class_result = analyzer.analyze_multiple_images(class_bbox_data)
         class_results[class_name] = class_result
         
         # Save class-specific results
@@ -302,26 +404,31 @@ def process_all_bbox_files(data_folder, output_folder=None):
         
         # Print class statistics
         class_stats = analyzer.get_patch_statistics(class_result)
-        print(f"\nClass: {class_name} ({len(class_bboxes)} images)")
+        class_region_stats = analyzer.analyze_region_distribution(class_bbox_data)
+        
+        print(f"\nClass: {class_name} ({len(class_bbox_data)} images, {class_region_stats['total_regions']} total regions)")
         print(f"  Patches with overlap: {class_stats['patches_with_overlap']}/25")
         print(f"  Max overlap count: {class_stats['max_overlap_count']}")
         print(f"  Mean overlap count: {class_stats['mean_overlap_count']:.2f}")
         print(f"  Patch utilization: {class_stats['patch_utilization']:.1f}%")
+        print(f"  Mean regions per image: {class_region_stats['mean_regions_per_image']:.2f}")
+        print(f"  Images with multiple regions: {class_region_stats['images_with_multiple_regions']}")
     
     # Create visualization for overall results
     try:
         print("\nCreating overall visualization...")
-        analyzer.visualize_patch_counts(result, "Overall Patch Overlap Counts - All Classes")
+        analyzer.visualize_patch_counts(result, "Overall Patch Overlap Counts - All Classes (Per Image)")
         
         # Save the plot
-        plt.savefig(os.path.join(output_folder, "overall_patch_heatmap.png"), 
+        plt.savefig(os.path.join(output_folder, "overall_patch_heatmap_per_image.png"), 
                    dpi=300, bbox_inches='tight')
-        print(f"Heatmap saved to {os.path.join(output_folder, 'overall_patch_heatmap.png')}")
+        print(f"Heatmap saved to {os.path.join(output_folder, 'overall_patch_heatmap_per_image.png')}")
         
     except Exception as e:
         print(f"Visualization error: {e}")
     
     return result, class_results
+
 # Example usage
 def main():
     # Example: Process all files in a data folder
@@ -346,6 +453,12 @@ def example_usage():
     # Load all bbox files from a folder
     data_folder = "/path/to/your/data/folder"
     all_bbox_data = analyzer.load_all_bbox_files(data_folder)
+    
+    # Analyze region distribution
+    region_stats = analyzer.analyze_region_distribution(all_bbox_data)
+    print("Region distribution:")
+    for key, value in region_stats.items():
+        print(f"{key}: {value}")
     
     # Analyze overlaps
     result = analyzer.analyze_multiple_images(all_bbox_data)
