@@ -151,15 +151,16 @@ class GridPolygonAnalyzer:
     
     def process_all_images_separately(self, bbox_data):
         """
-        Process all images separately and return individual grids
+        Process all images separately and return individual grids plus cumulative
         
         Args:
             bbox_data: dictionary with image paths as keys and bbox lists as values
             
         Returns:
-            Dictionary mapping image_path to (grid, metadata) tuples
+            tuple: (individual_results_dict, cumulative_grid)
         """
         results = {}
+        cumulative_grid = np.zeros(self.grid_size, dtype=int)
         
         print(f"Processing {len(bbox_data)} images separately...")
         
@@ -171,6 +172,9 @@ class GridPolygonAnalyzer:
                     'metadata': metadata
                 }
                 
+                # Add to cumulative grid
+                cumulative_grid += grid
+                
                 if (i + 1) % 100 == 0:
                     print(f"Processed {i + 1}/{len(bbox_data)} images")
                     
@@ -179,7 +183,7 @@ class GridPolygonAnalyzer:
                 continue
         
         print(f"Successfully processed {len(results)} images")
-        return results
+        return results, cumulative_grid
     
     def save_individual_grids(self, results, output_folder, save_format='numpy'):
         """
@@ -262,6 +266,78 @@ class GridPolygonAnalyzer:
         
         print(f"All {len(example_items)} examples saved to {examples_folder}")
         return examples_folder
+    
+    def save_selected_grids_only(self, results, cumulative_grid, output_folder, num_examples=5):
+        """
+        Save only the cumulative grid and first 5 individual examples (6 total)
+        Both as images and CSV files (12 files total)
+        
+        Args:
+            results: dictionary from process_all_images_separately
+            cumulative_grid: 2D numpy array with cumulative counts
+            output_folder: folder to save files
+            num_examples: number of individual examples to save
+        """
+        os.makedirs(output_folder, exist_ok=True)
+        
+        print(f"Saving cumulative grid + {num_examples} individual examples (6 grids total)")
+        
+        # 1. Save cumulative grid
+        cumulative_csv = os.path.join(output_folder, "cumulative_grid.csv")
+        np.savetxt(cumulative_csv, cumulative_grid, delimiter=',', fmt='%d')
+        
+        # Create cumulative grid visualization
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(cumulative_grid, annot=True, fmt='d', cmap='YlOrRd', 
+                   cbar_kws={'label': 'Overlap Count'})
+        plt.title(f"Cumulative Grid - All {len(results)} Images")
+        plt.xlabel('Column')
+        plt.ylabel('Row')
+        plt.tight_layout()
+        
+        cumulative_png = os.path.join(output_folder, "cumulative_grid.png")
+        plt.savefig(cumulative_png, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        print(f"Saved cumulative grid: CSV and PNG")
+        
+        # 2. Save first 5 individual examples
+        example_items = list(results.items())[:num_examples]
+        
+        for i, (image_path, result) in enumerate(example_items):
+            # Create safe filename
+            base_name = os.path.splitext(os.path.basename(image_path))[0]
+            safe_name = "".join(c for c in base_name if c.isalnum() or c in ('-', '_'))
+            
+            grid = result['grid']
+            metadata = result['metadata']
+            
+            # Save individual grid as CSV
+            csv_file = os.path.join(output_folder, f"individual_{i+1}_{safe_name}.csv")
+            np.savetxt(csv_file, grid, delimiter=',', fmt='%d')
+            
+            # Create and save individual visualization
+            plt.figure(figsize=(6, 5))
+            sns.heatmap(grid, annot=True, fmt='d', cmap='Blues', 
+                       cbar_kws={'label': 'Overlap'}, vmin=0, vmax=1)
+            
+            title = f"Individual {i+1}: {base_name}\n{metadata['num_regions']} regions, {metadata['total_active_cells']} active cells"
+            plt.title(title, fontsize=10)
+            plt.xlabel('Column')
+            plt.ylabel('Row')
+            plt.tight_layout()
+            
+            # Save the plot
+            png_file = os.path.join(output_folder, f"individual_{i+1}_{safe_name}.png")
+            plt.savefig(png_file, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            print(f"Saved individual {i+1}: {safe_name} (CSV + PNG)")
+        
+        total_files = 2 + (num_examples * 2)  # cumulative (2) + individuals (2 each)
+        print(f"Total files saved: {total_files} ({total_files//2} CSVs + {total_files//2} PNGs)")
+        
+        return output_folder
     
     def save_metadata_summary(self, results, output_file):
         """
@@ -404,7 +480,7 @@ def main():
         return
     
     # Process all images separately
-    results = analyzer.process_all_images_separately(bbox_data)
+    results, cumulative_grid = analyzer.process_all_images_separately(bbox_data)
     
     if not results:
         print("No images processed successfully!")
@@ -420,22 +496,18 @@ def main():
         else:
             print(f"{key}: {value}")
     
+    print(f"\nCumulative Grid:")
+    print(cumulative_grid)
+    
     # Setup output folder
     output_folder = "C:/Users/ensin/OneDrive/Documenten/Universiteit/Thesis/MasterThesis/ThesisFleur/Falcon/individual_grids"
     
-    # Save individual grids
-    analyzer.save_individual_grids(results, output_folder, save_format='numpy')
-    
-    # Save example grids with visualizations
-    examples_folder = analyzer.save_example_grids(results, output_folder, num_examples=5)
-    
-    # Save metadata summary
-    summary_file = os.path.join(output_folder, "grid_metadata_summary.csv")
-    summary_df = analyzer.save_metadata_summary(results, summary_file)
+    # Save only the 6 selected grids (cumulative + 5 examples) as both CSV and PNG
+    analyzer.save_selected_grids_only(results, cumulative_grid, output_folder, num_examples=5)
     
     # Show examples
-    print(f"\nExample grids from first few images:")
-    analyzer.visualize_multiple_examples(results, num_examples=6)
+    print(f"\nShowing visualizations...")
+    analyzer.visualize_multiple_examples(results, num_examples=6)  # Show cumulative + 5 examples
     
     # Show individual examples
     first_image_path = list(results.keys())[0]
@@ -449,7 +521,7 @@ def main():
     image_array = analyzer.grid_to_image_array(first_result['grid'], scale_factor=10)
     print(f"Image array shape for conversion: {image_array.shape}")
     
-    return results
+    return results, cumulative_grid
 
 def example_single_image_processing():
     """Example of processing just one image"""
@@ -475,7 +547,7 @@ def example_single_image_processing():
 
 if __name__ == "__main__":
     # Run main processing
-    results = main()
+    results, cumulative_grid = main()
     
     # Run single image example
     print("\n" + "="*50)
